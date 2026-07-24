@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="David Lee Wise / ROOT0 / TriPod LLC">
+<title>THE OBSERVER PARADOX · FOUNDATION · UD0</title>
+<style>
+*{box-sizing:border-box}
+:root{--gold:#b8841c;--gold2:#8a6410;--bronze:#6b4e12;--ink:#2c2418;--dim:#8a7a55;
+  --grn:#2e8b57;--red:#c0392b;--blue:#2a6ad0;
+  --panel:rgba(255,251,241,.74);--edge:rgba(184,132,28,.32);--edge2:rgba(184,132,28,.16)}
+html,body{margin:0;height:100%}
+body{background:#efe7d5;color:var(--ink);font:15px/1.55 'Segoe UI',system-ui,-apple-system,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+#bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;display:block}
+.wrap{position:relative;z-index:2;max-width:940px;margin:0 auto;padding:26px 20px 60px}
+.dtag{font:600 11px/1 ui-monospace,'Cascadia Code','Segoe UI Mono',monospace;letter-spacing:.32em;text-transform:uppercase;color:var(--bronze)}
+.dtag b{color:var(--gold2)}
+h1{margin:.35em 0 .1em;font-size:clamp(26px,4.6vw,42px);font-weight:800;letter-spacing:.01em;color:#3a2e12;text-shadow:0 1px 0 rgba(255,255,255,.5)}
+.sub{color:#5a4c2c;max-width:66ch;margin:.2em 0 0}
+.tier{display:inline-flex;gap:6px;align-items:center;margin-top:14px;font:600 11px/1 ui-monospace,monospace;letter-spacing:.14em}
+.chip{padding:5px 10px;border-radius:999px;border:1px solid var(--edge);background:var(--panel)}
+.chip.lit{color:var(--grn);border-color:rgba(46,139,87,.5)}
+.chip.amb{color:var(--gold2);border-color:rgba(184,132,28,.55)}
+.chip.wall{color:var(--red);border-color:rgba(192,57,43,.45)}
+.card{margin-top:20px;background:var(--panel);border:1px solid var(--edge);border-radius:16px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 14px 40px rgba(120,90,20,.16)}
+.stagewrap{padding:14px}
+#stage{width:100%;height:auto;display:block;border-radius:10px;background:rgba(252,247,235,.72);border:1px solid rgba(184,132,28,.14)}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:0 14px 14px}
+.btn{cursor:pointer;border:1px solid var(--edge);background:rgba(245,236,214,.85);color:var(--ink);padding:9px 14px;border-radius:10px;font:600 13px/1 'Segoe UI',system-ui;letter-spacing:.02em;transition:.15s}
+.btn:hover{border-color:var(--gold);box-shadow:0 0 14px rgba(184,132,28,.22)}
+.btn.on{background:linear-gradient(180deg,#d9a531,#b8841c);border-color:#b8841c;color:#fff8ea}
+.rng{display:flex;align-items:center;gap:8px;font:600 12px ui-monospace,monospace;color:var(--bronze)}
+input[type=range]{accent-color:var(--gold)}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--edge2);border-top:1px solid var(--edge);border-radius:0 0 16px 16px;overflow:hidden}
+.ro{background:var(--panel);padding:11px 14px}
+.ro .k{font:600 10px ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--bronze)}
+.ro .v{font:700 19px ui-monospace,monospace;margin-top:3px;color:var(--ink)}
+.ro .v.g{color:var(--grn)} .ro .v.r{color:var(--red)} .ro .v.a{color:var(--gold2)} .ro .v.c{color:var(--blue)}
+.honesty{margin-top:22px;display:grid;gap:10px}
+.hz{background:var(--panel);border:1px solid var(--edge);border-left-width:3px;border-radius:10px;padding:12px 15px}
+.hz.lit{border-left-color:var(--grn)} .hz.amb{border-left-color:var(--gold)} .hz.wall{border-left-color:var(--red)}
+.hz h4{margin:0 0 4px;font:700 11px ui-monospace,monospace;letter-spacing:.16em}
+.hz.lit h4{color:var(--grn)} .hz.amb h4{color:var(--gold2)} .hz.wall h4{color:var(--red)}
+.hz p{margin:0;color:#4a3c1e;font-size:13.5px}
+.law{margin-top:16px;text-align:center;color:var(--bronze);font:italic 500 13px/1.5 Georgia,serif}
+.sig{margin-top:26px;text-align:center;color:var(--bronze);font:600 11px ui-monospace,monospace;letter-spacing:.14em}
+.sig b{color:var(--ink)}
+#fail{display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:99;background:#3a1410;border:1px solid #c0392b;color:#ffd7d0;padding:12px 15px;border-radius:10px;font:12px ui-monospace,monospace;white-space:pre-wrap}
+</style></head><body>
+<canvas id="bg"></canvas>
+<div class="wrap">
+  <div class="dtag">▼ <b>FOUNDATION</b> · the gravity well the whole corpus rests in</div>
+  <h1>THE OBSERVER PARADOX</h1>
+  <p class="sub">Psychohistory's second axiom: the population must stay <b>ignorant of the analysis</b>. A prediction that reaches the predicted stops being true — they steer by it, and the forecast folds back on itself. Reveal the plan and watch it break the very thing it measured.</p>
+  <div class="tier"><span class="chip lit">◆ LIT</span><span class="chip amb">▲ AMBER</span></div>
+  <div class="card">
+    <div class="stagewrap"><canvas id="stage" width="900" height="440"></canvas></div>
+    <div class="controls"><button class="btn on" id="hide">◑ prediction HIDDEN</button><button class="btn" id="mode">reaction: DEFEAT ⇄ FULFILL</button><button class="btn" id="reset">↺</button></div>
+    <div class="readout"><div class="ro"><div class="k">prediction</div><div class="v" id="roVis">HIDDEN</div></div><div class="ro"><div class="k">reaction</div><div class="v" id="roMode">self-defeating</div></div><div class="ro"><div class="k">predicted</div><div class="v" id="roPred">—</div></div><div class="ro"><div class="k">actual</div><div class="v" id="roReal">—</div></div><div class="ro"><div class="k">forecast error</div><div class="v" id="roErr">—</div></div></div>
+  </div>
+  <div class="honesty">
+    <div class="hz lit"><h4>◆ LIT — verified / checkable</h4><p>Agents follow a latent trend; the forecast is that trend. While the prediction is HIDDEN, actual tracks predicted and the error stays ~0 — the forecast is valid. REVEAL it and each agent adjusts by the prediction (away from it in self-defeating mode, toward it in self-fulfilling), so actual departs from predicted and the error grows: a real model of reflexivity — a prediction that changes the system it predicts. The error jumping on reveal is the measured effect.</p></div>
+    <div class="hz amb"><h4>▲ AMBER — the figure</h4><p>Asimov's 'the people must not know psychohistory' is the frame. The mechanism is reflexive prediction (Merton's self-fulfilling/self-defeating prophecy), rendered as agents shifting by a revealed forecast. The 'society' is a toy trend; the point is only that observation can perturb the observed.</p></div>
+    
+  </div>
+  <div class="law">FOUNDATION: the individual is a mystery; the mass is a law. The plan does not command the future — it reads the shape the numbers already hold.</div>
+  <div class="sig">David Lee Wise / ROOT0 / TriPod LLC &nbsp;·&nbsp; with <b>AVAN</b> &nbsp;·&nbsp; keeper: TARAVANGIAN</div>
+</div>
+<div id="fail"></div>
+<script>
+window.onerror=function(m,s,l,c,e){var f=document.getElementById('fail');if(f){f.style.display='block';f.textContent='⚠ '+m+' @'+l+':'+c+(e&&e.stack?'\n'+e.stack:'');}};
+</script>
+<script>
+(function(){
+  var cv=document.getElementById('bg'); if(!cv) return;
+  function fallback(){var c=cv.getContext&&cv.getContext('2d');if(!c)return;
+    function f(){var w=cv.width=innerWidth,h=cv.height=innerHeight;
+      var g=c.createRadialGradient(w*0.5,h*0.42,0,w*0.5,h*0.42,Math.max(w,h)*0.8);
+      g.addColorStop(0,'#f4eddb');g.addColorStop(1,'#e6dcc4');c.fillStyle=g;c.fillRect(0,0,w,h);}
+    f();addEventListener('resize',f);}
+  var gl;try{gl=cv.getContext('webgl',{antialias:true,alpha:false})||cv.getContext('experimental-webgl');}catch(e){}
+  if(!gl){fallback();return;}
+  function m4mul(a,b){var o=new Array(16);for(var r=0;r<4;r++)for(var c=0;c<4;c++){var s=0;for(var k=0;k<4;k++)s+=a[k*4+r]*b[c*4+k];o[c*4+r]=s;}return o;}
+  function persp(f,asp,n,fa){var t=1/Math.tan(f/2);return[t/asp,0,0,0,0,t,0,0,0,0,(fa+n)/(n-fa),-1,0,0,(2*fa*n)/(n-fa),0];}
+  function rotY(a){var c=Math.cos(a),s=Math.sin(a);return[c,0,-s,0,0,1,0,0,s,0,c,0,0,0,0,1];}
+  function rotX(a){var c=Math.cos(a),s=Math.sin(a);return[1,0,0,0,0,c,s,0,0,-s,c,0,0,0,0,1];}
+  function trans(x,y,z){return[1,0,0,0,0,1,0,0,0,0,1,0,x,y,z,1];}
+  // paraboloid gravity well as a wireframe (rings + spokes) -> line segments
+  var RINGS=13, SEG=44, segs=[];
+  function wellY(r){return -1.9/(r*r+0.22)+1.2;}   // deep near centre, flattening out
+  function pt(ri,si){var r=0.18+ri/RINGS*2.4, a=si/SEG*2*Math.PI;return [r*Math.cos(a),wellY(r),r*Math.sin(a)];}
+  for(var ri=0;ri<RINGS;ri++){for(var si=0;si<SEG;si++){var A=pt(ri,si),B=pt(ri,(si+1)%SEG);segs.push(A[0],A[1],A[2],B[0],B[1],B[2]);
+    if(ri<RINGS-1){var C=pt(ri+1,si);if(si%2===0)segs.push(A[0],A[1],A[2],C[0],C[1],C[2]);}}}
+  var vbuf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,vbuf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(segs),gl.STATIC_DRAW);
+  var VS='attribute vec3 p;uniform mat4 mvp;varying float d;void main(){vec4 q=mvp*vec4(p,1.0);d=p.y;gl_Position=q;}';
+  var FS='precision mediump float;varying float d;void main(){float a=0.22+0.20*(d+1.0);gl_FragColor=vec4(0.55,0.38,0.06,clamp(a,0.06,0.42));}';
+  function sh(t,s){var o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);if(!gl.getShaderParameter(o,gl.COMPILE_STATUS))throw gl.getShaderInfoLog(o);return o;}
+  var prog;try{prog=gl.createProgram();gl.attachShader(prog,sh(gl.VERTEX_SHADER,VS));gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,FS));gl.linkProgram(prog);if(!gl.getProgramParameter(prog,gl.LINK_STATUS))throw'link';}catch(e){fallback();return;}
+  gl.useProgram(prog);var aP=gl.getAttribLocation(prog,'p'),uMVP=gl.getUniformLocation(prog,'mvp');
+  gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
+  var t0=null;
+  function frame(t){requestAnimationFrame(frame);if(t0===null)t0=t;var tt=(t-t0)*0.001;
+    var w=cv.width=innerWidth,h=cv.height=innerHeight;gl.viewport(0,0,w,h);
+    gl.clearColor(0.945,0.914,0.847,1.0);gl.clear(gl.COLOR_BUFFER_BIT);
+    var pr=persp(1.0,w/h,0.1,50);var mv=m4mul(trans(0,-0.3,-4.6),m4mul(rotX(-0.62),rotY(tt*0.12)));
+    gl.uniformMatrix4fv(uMVP,false,m4mul(pr,mv));
+    gl.bindBuffer(gl.ARRAY_BUFFER,vbuf);gl.enableVertexAttribArray(aP);gl.vertexAttribPointer(aP,3,gl.FLOAT,false,0,0);
+    gl.lineWidth(1);gl.drawArrays(gl.LINES,0,segs.length/3);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+<script>
+(function(){
+  var cv=document.getElementById('stage'); var ctx=cv&&cv.getContext('2d'); if(!ctx)return;
+  var DPR=Math.min(window.devicePixelRatio||1,2);
+  function size(){var w=cv.clientWidth||900;cv.width=Math.round(w*DPR);cv.height=Math.round((w*440/900)*DPR);}
+  size(); addEventListener('resize',size);
+  var env={cv:cv,ctx:ctx,DPR:DPR,W:function(){return cv.width/DPR;},H:function(){return cv.height/DPR;},
+    set:function(id,val,cls){var e=document.getElementById(id);if(e){e.textContent=val;if(cls!=null)e.className='v '+cls;}}};
+  var t0=null, inited=false;
+  function loop(t){requestAnimationFrame(loop);if(t0===null)t0=t;env.t=(t-t0)*0.001;
+    if(!inited&&window.__INST__){inited=true;if(window.__INST__.init)window.__INST__.init(env);}
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    if(window.__INST__&&window.__INST__.draw)window.__INST__.draw(env);}
+  requestAnimationFrame(loop);
+})();
+</script>
+<script>
+(function(){
+  var hidden=true, defeat=true, agents=[], ENV, predicted=0, actual=0, t=0;
+  for(var i=0;i<40;i++)agents.push({o:(Math.random()-0.5)*0.3});
+  function refresh(){if(!ENV)return;ENV.set('roVis',hidden?'HIDDEN':'REVEALED',hidden?'g':'r');
+    ENV.set('roMode',defeat?'self-defeating':'self-fulfilling','a');
+    ENV.set('roPred',predicted.toFixed(3),'a');ENV.set('roReal',actual.toFixed(3),'c');
+    var e=Math.abs(actual-predicted);ENV.set('roErr',e.toFixed(3),e<0.03?'g':(e<0.15?'a':'r'));}
+  window.__INST__={init:function(env){ENV=env;
+    document.getElementById('hide').onclick=function(){hidden=!hidden;document.getElementById('hide').classList.toggle('on',hidden);document.getElementById('hide').textContent=hidden?'◑ prediction HIDDEN':'◐ prediction REVEALED';refresh();};
+    document.getElementById('mode').onclick=function(){defeat=!defeat;refresh();};
+    document.getElementById('reset').onclick=function(){t=0;refresh();};refresh();},
+   draw:function(env){var c=env.ctx,w=env.W(),h=env.H();c.clearRect(0,0,w,h);t+=0.01;
+     var trend=Math.sin(t*1.2)*0.5; predicted=trend;
+     var sum=0;for(var i=0;i<agents.length;i++){var a=agents[i];var target=trend+a.o;
+       if(!hidden){target += (defeat?-1:1)*Math.abs(trend)*0.9*(defeat?Math.sign(trend||1):1);}
+       a.y=(a.y==null?target:a.y+(target-a.y)*0.08);sum+=a.y;}
+     actual=sum/agents.length;refresh();
+     var x0=40,y0=h*0.5,pw=w-x0-20,ph=h*0.36;function Y(v){return y0-v*ph;}
+     c.strokeStyle='rgba(184,132,28,.6)';c.lineWidth=2;c.setLineDash([5,4]);c.beginPath();c.moveTo(x0,Y(predicted));c.lineTo(x0+pw,Y(predicted));c.stroke();c.setLineDash([]);
+     c.fillStyle='rgba(184,132,28,.85)';c.font='600 10px ui-monospace,monospace';c.textAlign='left';c.fillText('— the prediction',x0,Y(predicted)-6);
+     for(var i=0;i<agents.length;i++){var ax=x0+(i+0.5)/agents.length*pw;c.fillStyle=hidden?'rgba(184,132,28,.5)':'rgba(192,57,43,.6)';c.beginPath();c.arc(ax,Y(agents[i].y),3,0,7);c.fill();}
+     c.strokeStyle='#2c2418';c.lineWidth=2;c.beginPath();c.moveTo(x0,Y(actual));c.lineTo(x0+pw,Y(actual));c.stroke();
+     c.fillStyle='#2c2418';c.fillText('actual (mass behaviour)',x0,Y(actual)+16);
+   }};
+})();
+</script>
+</body></html>
