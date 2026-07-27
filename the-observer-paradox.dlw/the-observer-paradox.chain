@@ -1,9 +1,9 @@
 ROOT0-DLW-CHAIN-v1
 index : 1506
 slug  : the-observer-paradox
-seal  : a66c378bb32961e4f32d194395f62bd341c7429583af3ca4b9523a15c3ce762e
-prev  : 8f8d3982df25ecd8243b31311af1670b6e1c9fba94ad0a9eed1732d04b8b7a19
-link  : a783a9d3de7fa23eba1e7046a325c3e3e6727d2e0ab538151cefe8cab13faea2
-head  : 117960589ab3434a71703add09b59af6906b1cf738b4485fa23e9f29718a6458
+seal  : d2643c9157a4817d564ed5da7da1f125213115a2977c934af5176ab8188a8e70
+prev  : 1e384c16438bc9668bd624c6cca0b3654f6df885496e6c631167495d37d4f800
+link  : 1d5cbf2665b279fbc150779dc0e33096e4bfdedd45572ffe39eafb817e521e7a
+head  : c4d41afeaef76470528856d54d86cf480a0e1c2fc8ebc60fbb9eb8e442585f2b
 
 — the tether: link = sha256(index|slug|seal|prev). the chain head commits to the whole corpus.
